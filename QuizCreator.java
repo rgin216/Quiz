@@ -39,6 +39,30 @@ public class QuizCreator {
                         break;
                     }
                 }
+            }else if (input.equalsIgnoreCase("EXECUTE")) {
+                int correctCount = 0;
+                for (Question q : questions) {
+                    System.out.println("\n"+q.getQuestion());
+                    for (int i = 0; i < q.getChoices().size(); i++) {
+                        System.out.println((char)('A' + i) + ". " + q.getChoices().get(i));
+                    }
+                    System.out.println("Enter your answer:");
+                    String answer = scanner.nextLine();
+                    // Map the user's answer to the corresponding choice
+                    String chosenChoice = q.getChoices().get(answer.charAt(0) - 'A');
+                    if (chosenChoice.equalsIgnoreCase(q.getCorrectChoice())) {
+                        correctCount++;
+                        System.out.println("Correct!\n");
+                    } else {
+                        System.out.println("Wrong! The correct answer is " + "\"" + q.getCorrectChoice() + "\"" + "\n");
+                    }
+                }
+                System.out.println("You got " + correctCount + " out of " + questions.size() + " questions correct.");
+            } else if (input.equalsIgnoreCase("EXIT")) {
+                System.out.println("Exiting the program.");
+                break;
+            } else {
+                System.out.println("Invalid command.");
             }
         }
     }
